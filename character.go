@@ -21,4 +21,3 @@ func NewCharacter(name string) character {
 
 	return newCharacter
 }
-
