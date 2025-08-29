@@ -78,11 +78,11 @@ func NewArcher(name string) Archer {
 }
 
 type CharacterInterface interface {
-	EquipWeapon(weapon item)
-	EquipArmor(armor item)
+	EquipWeapon(weapon Weapon)
+	EquipArmor(armor Armor)
 }
 
-func (warrior Warrior) EquipWeapon(weapon item) {
+func (warrior Warrior) EquipWeapon(weapon Weapon) {
 	if weapon.name == "Magic Staff" {
 		fmt.Println("Warriors cannot equip magic staves.")
 	} else {
@@ -90,10 +90,34 @@ func (warrior Warrior) EquipWeapon(weapon item) {
 	}
 }
 
-func (warrior Warrior) EquipArmor(armor item) {
+func (warrior Warrior) EquipArmor(armor Armor) {
 	if armor.name == "Magic Robe" {
 		fmt.Println("Warriors cannot equip magic robes.")
 	} else {
 		warrior.equippedArmor = armor.name
 	}
+}
+
+func (mage Mage) EquipWeapon(weapon Weapon) {
+	if weapon.name == "Heavy Sword" {
+		fmt.Println("Warriors cannot equip heavy armors.")
+	} else {
+		mage.equippedWeapon = weapon.name
+	}
+}
+
+func (mage Mage) EquipArmor(armor Armor) {
+	mage.equippedArmor = armor.name
+}
+
+func (archer Archer) EquipWeapon(weapon Weapon) {
+	if weapon.name == "Heavy Sword" {
+		fmt.Println("Warriors cannot equip heay shields.")
+	} else {
+		archer.equippedWeapon = weapon.name
+	}
+}
+
+func (archer Archer) EquipArmor(armor Armor) {
+	archer.equippedArmor = armor.name
 }

@@ -26,18 +26,20 @@ func main() {
 	}
 	characterName := getInput("Name your character: ", reader)
 
+	var player CharacterInterface
+
 	switch characterChoice {
 	case "a":
 		{
-			NewWarrior(characterName)
+			player = NewWarrior(characterName)
 		}
 	case "b":
 		{
-			NewMage(characterName)
+			player = NewMage(characterName)
 		}
 	case "c":
 		{
-			NewArcher(characterName)
+			player = NewArcher(characterName)
 		}
 	}
 	// **Weapons**:
@@ -51,6 +53,45 @@ func main() {
 	// - The user chooses "Heavy Sword" and "Plate Armor."
 
 	weaponChoice := getInput("Choose a weapon: (a) Heavy Sword (Damage Bonus: 5), (b) Magic Staff (Damage Bonus: 3), (c) Bow (Damage Bonus: 4)", reader)
-	
+
+	var chosenWeapon Weapon
+	switch weaponChoice {
+	case "a":
+		{
+			chosenWeapon = NewWeapon("Heavy Sword")
+		}
+	case "b":
+		{
+			chosenWeapon = NewWeapon("Magic Staff")
+		}
+	case "c":
+		{
+			chosenWeapon = NewWeapon("Bow")
+		}
+	}
+
+	player.EquipWeapon(chosenWeapon)
+	fmt.Println(chosenWeapon.name, " equipped!")
+
+	armorChoice := getInput("Choose an armor: (a) Plate Armor (Damage Bonus: 5), (b) Leather Armor (Damage Bonus: 3), (c) Magic Robe (Damage Bonus: 4)", reader)
+
+	var chosenArmor Armor
+
+	switch armorChoice {
+	case "a":
+		{
+			chosenArmor = NewArmor("Heavy Sword")
+		}
+	case "b":
+		{
+			chosenArmor = NewArmor("Magic Staff")
+		}
+	case "c":
+		{
+			chosenArmor = NewArmor("Bow")
+		}
+	}
+	player.EquipArmor(chosenArmor)
+	fmt.Println(chosenArmor.name, " equipped!")
 
 }

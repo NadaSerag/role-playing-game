@@ -5,7 +5,7 @@ type item struct {
 }
 
 type Weapon struct {
-	item        // using composition here
+	item
 	damageBonus int
 }
 
@@ -39,4 +39,31 @@ func NewWeapon(name string) Weapon {
 	}
 
 	return newWeapon
+}
+
+func NewArmor(name string) Armor {
+	var def int
+	switch name {
+	case "Plate Armor":
+		{
+			def = 5
+		}
+	case "Leather Armor":
+		{
+			def = 3
+		}
+	case "Magic Robe":
+		{
+			def = 4
+		}
+	}
+
+	newArmor := Armor{
+		item: item{
+			name: name,
+		},
+		defenseBonus: def,
+	}
+
+	return newArmor
 }
