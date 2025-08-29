@@ -45,7 +45,7 @@ type Mage struct {
 	Character
 }
 
-func NewWMage(name string) Mage {
+func NewMage(name string) Mage {
 	return Mage{
 		Character: Character{
 			name:     name,
