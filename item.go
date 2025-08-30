@@ -14,6 +14,11 @@ type Armor struct {
 	defenseBonus int
 }
 
+type ItemInterface interface {
+	GetPoints() int
+	GetName() string
+}
+
 func NewWeapon(name string) Weapon {
 	var def int
 	switch name {
@@ -66,4 +71,16 @@ func NewArmor(name string) Armor {
 	}
 
 	return newArmor
+}
+
+func (weapon Weapon) GetPoints() int {
+	return weapon.damageBonus
+}
+
+func (armor Armor) GetPoints() int {
+	return armor.defenseBonus
+}
+
+func (I item) GetName() string {
+	return I.name
 }

@@ -31,15 +31,22 @@ func main() {
 	switch characterChoice {
 	case "a":
 		{
-			player = NewWarrior(characterName)
+			warrior := NewWarrior(characterName)
+			player = &warrior
+			//why not player = &NewWarrior(characterName) ??
+			//&NewWarrior(...) tries to take the address of a function call result, which Go does not allow directly.
+			//Go requires that & be applied to a variable or composite literal, not the return value of a function.
+
 		}
 	case "b":
 		{
-			player = NewMage(characterName)
+			mage := NewMage(characterName)
+			player = &mage
 		}
 	case "c":
 		{
-			player = NewArcher(characterName)
+			archer := NewArcher(characterName)
+			player = &archer
 		}
 	}
 	// **Weapons**:
@@ -71,7 +78,6 @@ func main() {
 	}
 
 	player.EquipWeapon(chosenWeapon)
-	fmt.Println(chosenWeapon.name, " equipped!")
 
 	armorChoice := getInput("Choose an armor: (a) Plate Armor (Damage Bonus: 5), (b) Leather Armor (Damage Bonus: 3), (c) Magic Robe (Damage Bonus: 4)", reader)
 
@@ -80,18 +86,19 @@ func main() {
 	switch armorChoice {
 	case "a":
 		{
-			chosenArmor = NewArmor("Heavy Sword")
+			chosenArmor = NewArmor("Plate Armor")
 		}
 	case "b":
 		{
-			chosenArmor = NewArmor("Magic Staff")
+			chosenArmor = NewArmor("Leather Armor")
 		}
 	case "c":
 		{
-			chosenArmor = NewArmor("Bow")
+			chosenArmor = NewArmor("Magic Robe")
 		}
 	}
 	player.EquipArmor(chosenArmor)
-	fmt.Println(chosenArmor.name, " equipped!")
+
+	player.PrintStats()
 
 }

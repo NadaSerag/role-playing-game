@@ -1,6 +1,9 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"strconv"
+)
 
 type Character struct {
 	name           string
@@ -8,22 +11,8 @@ type Character struct {
 	strength       int
 	defense        int
 	magic          int
-	equippedWeapon string
-	equippedArmor  string
-}
-
-//creating characters
-
-func NewCharacter(name string) Character {
-	newCharacter := Character{
-		name:     name,
-		health:   0,
-		strength: 0,
-		defense:  0,
-		magic:    0,
-	}
-
-	return newCharacter
+	equippedWeapon Weapon
+	equippedArmor  Armor
 }
 
 // Warrior`: High `strength` and `defense`, low `magic`
@@ -80,44 +69,67 @@ func NewArcher(name string) Archer {
 type CharacterInterface interface {
 	EquipWeapon(weapon Weapon)
 	EquipArmor(armor Armor)
+	PrintStats()
 }
 
-func (warrior Warrior) EquipWeapon(weapon Weapon) {
+func (warrior *Warrior) EquipWeapon(weapon Weapon) {
 	if weapon.name == "Magic Staff" {
 		fmt.Println("Warriors cannot equip magic staves.")
 	} else {
-		warrior.equippedWeapon = weapon.name
+		warrior.equippedWeapon = weapon
+		fmt.Println(weapon.name, " equipped!")
 	}
 }
 
-func (warrior Warrior) EquipArmor(armor Armor) {
+func (warrior *Warrior) EquipArmor(armor Armor) {
 	if armor.name == "Magic Robe" {
 		fmt.Println("Warriors cannot equip magic robes.")
 	} else {
-		warrior.equippedArmor = armor.name
+		warrior.equippedArmor = armor
+		fmt.Println(armor.name, " equipped!")
 	}
 }
 
-func (mage Mage) EquipWeapon(weapon Weapon) {
+func (mage *Mage) EquipWeapon(weapon Weapon) {
 	if weapon.name == "Heavy Sword" {
 		fmt.Println("Warriors cannot equip heavy armors.")
 	} else {
-		mage.equippedWeapon = weapon.name
+		mage.equippedWeapon = weapon
+		fmt.Println(weapon.name, " equipped!")
 	}
 }
 
-func (mage Mage) EquipArmor(armor Armor) {
-	mage.equippedArmor = armor.name
+func (mage *Mage) EquipArmor(armor Armor) {
+	mage.equippedArmor = armor
+	fmt.Println(armor.name, " equipped!")
 }
 
-func (archer Archer) EquipWeapon(weapon Weapon) {
+func (archer *Archer) EquipWeapon(weapon Weapon) {
 	if weapon.name == "Heavy Sword" {
 		fmt.Println("Warriors cannot equip heay shields.")
 	} else {
-		archer.equippedWeapon = weapon.name
+		archer.equippedWeapon = weapon
+		fmt.Println(weapon.name, " equipped!")
 	}
 }
 
-func (archer Archer) EquipArmor(armor Armor) {
-	archer.equippedArmor = armor.name
+func (archer *Archer) EquipArmor(armor Armor) {
+	archer.equippedArmor = armor
+	fmt.Println(armor.name, " equipped!")
+}
+
+// function to print stats, common for all dervied structs of Character
+func (character Character) PrintStats() {
+	fmt.Println("Character: ", character.name)
+	fmt.Println("Health: ", character.health)
+	fmt.Println("Strength: ", character.strength)
+	fmt.Println("Defense: ", character.defense)
+	fmt.Println("Magic: ", character.magic)
+
+	damagePointsStr := strconv.Itoa(character.equippedWeapon.GetPoints())
+	defensePointsStr := strconv.Itoa(character.equippedArmor.GetPoints())
+
+	fmt.Println("Equipped Weapon: ", character.equippedWeapon.GetName(), "(+", damagePointsStr, "damage)")
+	fmt.Println("Equipped Armor: ", character.equippedArmor.GetName(), "(+", defensePointsStr, "defense)")
+
 }
