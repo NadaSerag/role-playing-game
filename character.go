@@ -67,9 +67,45 @@ func NewArcher(name string) Archer {
 }
 
 type CharacterInterface interface {
+	AddWeaponPoints(weapon Weapon)
+	AddArmorPoints(archer Armor)
 	EquipWeapon(weapon Weapon)
 	EquipArmor(armor Armor)
-	PrintStats()
+	PrintStats(characterPersonality string)
+}
+
+func (character *Character) AddWeaponPoints(weapon Weapon) {
+	switch weapon.name {
+	case "Heavy Sword":
+		{
+			character.strength += 5
+		}
+	case "Magic Staff":
+		{
+			character.strength += 3
+		}
+	case "Bow":
+		{
+			character.strength += 4
+		}
+	}
+}
+
+func (character *Character) AddArmorPoints(armor Armor) {
+	switch armor.name {
+	case "Plate Armor":
+		{
+			character.defense += 5
+		}
+	case "Leather Armor":
+		{
+			character.defense += 3
+		}
+	case "Magic Robe":
+		{
+			character.defense += 2
+		}
+	}
 }
 
 func (warrior *Warrior) EquipWeapon(weapon Weapon) {
@@ -77,6 +113,7 @@ func (warrior *Warrior) EquipWeapon(weapon Weapon) {
 		fmt.Println("Warriors cannot equip magic staves.")
 	} else {
 		warrior.equippedWeapon = weapon
+		warrior.AddWeaponPoints(weapon)
 		fmt.Println(weapon.name, " equipped!")
 	}
 }
@@ -86,6 +123,7 @@ func (warrior *Warrior) EquipArmor(armor Armor) {
 		fmt.Println("Warriors cannot equip magic robes.")
 	} else {
 		warrior.equippedArmor = armor
+		warrior.AddArmorPoints(armor)
 		fmt.Println(armor.name, " equipped!")
 	}
 }
@@ -95,12 +133,14 @@ func (mage *Mage) EquipWeapon(weapon Weapon) {
 		fmt.Println("Warriors cannot equip heavy armors.")
 	} else {
 		mage.equippedWeapon = weapon
+		mage.AddWeaponPoints(weapon)
 		fmt.Println(weapon.name, " equipped!")
 	}
 }
 
 func (mage *Mage) EquipArmor(armor Armor) {
 	mage.equippedArmor = armor
+	mage.AddArmorPoints(armor)
 	fmt.Println(armor.name, " equipped!")
 }
 
@@ -109,18 +149,20 @@ func (archer *Archer) EquipWeapon(weapon Weapon) {
 		fmt.Println("Warriors cannot equip heay shields.")
 	} else {
 		archer.equippedWeapon = weapon
+		archer.AddWeaponPoints(weapon)
 		fmt.Println(weapon.name, " equipped!")
 	}
 }
 
 func (archer *Archer) EquipArmor(armor Armor) {
 	archer.equippedArmor = armor
+	archer.AddArmorPoints(armor)
 	fmt.Println(armor.name, " equipped!")
 }
 
 // function to print stats, common for all dervied structs of Character
-func (character Character) PrintStats() {
-	fmt.Println("Character: ", character.name)
+func (character Character) PrintStats(characterPersonality string) {
+	fmt.Println("Character: ", character.name, " (", characterPersonality, ") ")
 	fmt.Println("Health: ", character.health)
 	fmt.Println("Strength: ", character.strength)
 	fmt.Println("Defense: ", character.defense)

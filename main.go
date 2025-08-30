@@ -33,20 +33,25 @@ func main() {
 		{
 			warrior := NewWarrior(characterName)
 			player = &warrior
+
 			//why not player = &NewWarrior(characterName) ??
 			//&NewWarrior(...) tries to take the address of a function call result, which Go does not allow directly.
 			//Go requires that & be applied to a variable or composite literal, not the return value of a function.
 
+			//modifying the string characterChoice to be the character type to display it later in PrintStats
+			characterChoice = "Warrior"
 		}
 	case "b":
 		{
 			mage := NewMage(characterName)
 			player = &mage
+			characterChoice = "Mage"
 		}
 	case "c":
 		{
 			archer := NewArcher(characterName)
 			player = &archer
+			characterChoice = "Archer"
 		}
 	}
 	// **Weapons**:
@@ -99,6 +104,6 @@ func main() {
 	}
 	player.EquipArmor(chosenArmor)
 
-	player.PrintStats()
+	player.PrintStats(characterChoice)
 
 }
