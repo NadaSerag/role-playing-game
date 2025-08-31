@@ -24,7 +24,7 @@ func NewWarrior(name string) Warrior {
 	return Warrior{
 		Character: Character{
 			name:     name,
-			health:   10,
+			health:   100,
 			strength: 15,
 			defense:  10,
 			magic:    5,
@@ -41,7 +41,7 @@ func NewMage(name string) Mage {
 	return Mage{
 		Character: Character{
 			name:     name,
-			health:   10,
+			health:   100,
 			strength: 5,
 			defense:  10,
 			magic:    15,
@@ -58,7 +58,7 @@ func NewArcher(name string) Archer {
 	return Archer{
 		Character: Character{
 			name:     name,
-			health:   10,
+			health:   100,
 			strength: 10,
 			defense:  7,
 			magic:    5,
@@ -68,7 +68,7 @@ func NewArcher(name string) Archer {
 
 type CharacterInterface interface {
 	AddWeaponPoints(weapon Weapon)
-	AddArmorPoints(archer Armor)
+	AddArmorPoints(armor Armor)
 	EquipWeapon(weapon Weapon)
 	EquipArmor(armor Armor)
 	PrintStats(characterPersonality string)
