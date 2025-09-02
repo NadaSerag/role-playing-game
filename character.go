@@ -1,8 +1,10 @@
 package main
+
 import (
 	"fmt"
 	"strconv"
 )
+
 type Character struct {
 	name           string
 	health         int
@@ -12,10 +14,12 @@ type Character struct {
 	equippedWeapon Weapon
 	equippedArmor  Armor
 }
+
 // Warrior`: High `strength` and `defense`, low `magic`
 type Warrior struct {
 	Character
 }
+
 func NewWarrior(name string) Warrior {
 	return Warrior{
 		Character: Character{
@@ -27,9 +31,11 @@ func NewWarrior(name string) Warrior {
 		},
 	}
 }
+
 type Mage struct {
 	Character
 }
+
 // `Mage`: High `magic`, low `strength`
 func NewMage(name string) Mage {
 	return Mage{
@@ -42,9 +48,11 @@ func NewMage(name string) Mage {
 		},
 	}
 }
+
 type Archer struct {
 	Character
 }
+
 // `Archer`: Moderate `strength` and `health`, low `magic`
 func NewArcher(name string) Archer {
 	return Archer{
@@ -63,7 +71,6 @@ type CharacterInterface interface {
 	AddArmorPoints(archer Armor)
 	EquipWeapon(weapon Weapon)
 	EquipArmor(armor Armor)
-	PrintStats()
 	PrintStats(characterPersonality string)
 }
 
@@ -152,8 +159,6 @@ func (archer *Archer) EquipArmor(armor Armor) {
 }
 
 // function to print stats, common for all dervied structs of Character
-func (character Character) PrintStats() {
-	fmt.Println("Character: ", character.name)
 func (character Character) PrintStats(characterPersonality string) {
 	fmt.Println("Character: ", character.name, " (", characterPersonality, ") ")
 	fmt.Println("Health: ", character.health)
@@ -161,7 +166,5 @@ func (character Character) PrintStats(characterPersonality string) {
 	fmt.Println("Defense: ", character.defense)
 	fmt.Println("Magic: ", character.magic)
 	damagePointsStr := strconv.Itoa(character.equippedWeapon.GetPoints())
-	defensePointsStr := strconv.Itoa(character.equippedArmor.GetPoints())
 	fmt.Println("Equipped Weapon: ", character.equippedWeapon.GetName(), "(+", damagePointsStr, "damage)")
-	fmt.Println("Equipped Armor: ", character.equippedArmor.GetName(), "(+", defensePointsStr, "defense)")
 }
